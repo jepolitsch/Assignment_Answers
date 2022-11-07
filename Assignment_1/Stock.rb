@@ -1,5 +1,7 @@
 require "csv"
 require "date"
+require_relative "Seed"
+
 class Stock
     attr_accessor :data_full, :header, :file_data, :name
     attr_accessor :stock ,:id, :last_planted, :storage, :grams
@@ -20,7 +22,7 @@ class Stock
       end
     end
       
-    def inventory(stock=00, all=false)
+    def inventory(stock=00, all=false) #Given a stock number, put stock ID and Grams
       check = full
       if stock != 00 and stock_list().include?(stock)
         check.each do |line|
@@ -37,7 +39,7 @@ class Stock
       end
     end
   
-    def full
+    def full #Probably unnessacary function when i wanted the fill data 
       return @data_full
     end
     
@@ -81,7 +83,7 @@ class Stock
          end
        end
     end
-      
+ 
     def from_file(file, sep="\t", header=true)
       infile = CSV.read(file, col_sep: sep)
       if header == true
@@ -96,7 +98,7 @@ class Stock
       end
     end  
     
-    def write(file, sep="\t", header=true)
+    def write(file, sep="\t", header=true) #Write outfile, default vars are tab with header
       check = full
       CSV.open(file, "w", col_sep: "\t") do |csv|
         csv << @header

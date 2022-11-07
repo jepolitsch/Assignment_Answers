@@ -30,12 +30,13 @@ class Cross
 
     def chi_squared(stock, gene_info)
       ## Since its a dihybrid cross, expected ratio is 9:3:3:1
+      ## Here i heavily relied on the bioninja source cited
       data=full[1..-1]
       results = []
       data.each do |l|
         p1, p2, f2_w, f2_p1, f2_p2, f2_p1p2 = l[0..-1] #observed
         observed = [f2_w, f2_p1, f2_p2, f2_p1p2].map{|s| s.to_f}
-        tot = (l[2..-1].map{|string| string.to_f}).sum() 
+        tot = (l[2..-1].map{|string| string.to_f}).sum() # map function to convert all s to f
         
         e_w, e_p1, e_p2, e_p1p2 = tot*9/16, tot*3/16, tot*3/16, tot*1/16  #Expected
         expected = [e_w, e_p1, e_p2, e_p1p2]
@@ -47,11 +48,12 @@ class Cross
           chi_2 += chi.to_f
         end
         
-        # with 3 degrees of freedom, chi2 > 7.81 significant
+        # with 3 degrees of freedom (1-n), chi2 > 7.81 significant
         if chi_2 > 7.8
           gene1 = gene_info[stock.stock_to_id(p1).to_s]
           gene2 = gene_info[stock.stock_to_id(p2).to_s]
           puts "Recording: #{gene1} is genetically linked to #{gene2} with chisquare score #{chi_2.round(5)}"
+          ## First put the desired message, then append the results for the final report
           results.append("#{gene1} is linked to #{gene2}\n#{gene2} is linked to #{gene1}")
         end
         end

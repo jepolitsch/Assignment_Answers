@@ -46,10 +46,11 @@ ruby main.rb <Arabidopsis_Database> <S_pombe_Database> <Arabidopsis.fa>  <S_pomb
 4. **S_pombe.fa**
 
 ## Output
-- blast_results.txt contains the results of the BLAST as well as other statistical information
+- reciprocal_best_hits.txt contains the results of the BLAST best reciprocal hits after quality filtering.
 
-- The command line output is verbose, some of which will be saved into a [output txt file](documents/). 
+- Some other text files (first_blast_unfiltered.txt and second_blast_unfiltered.txt) will be generated in the process and can be used to obtain more info about each blast.
 
+The command line output is verbose, some of which will be saved into a [output txt file](documents/). 
 
 ## Bonus Point:
 
